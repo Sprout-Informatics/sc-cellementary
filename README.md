@@ -8,6 +8,16 @@ This guide walks you through setting up your computing environment for single-ce
 
 ---
 
+## Table of Contents
+
+- [Part 1: Managing Your Google Cloud VM](#part-1-managing-your-google-cloud-vm)
+- [Part 2: Installing RStudio Server](#part-2-installing-rstudio-server)
+- [Part 3: Installing Seurat](#part-3-installing-seurat)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
+
+---
+
 ## Prerequisites
 
 Before starting, you should have:
