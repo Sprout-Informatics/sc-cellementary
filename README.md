@@ -3,7 +3,7 @@
 This guide walks you through setting up your computing environment for single-cell RNA-seq analysis. You will learn how to:
 
 1. Start and manage your Google Cloud VM
-2. Install RStudio Server on the VM
+2. Connect to your VM using Visual Studio Code (VSCode)
 3. Install Seurat and related R packages
 
 ---
@@ -11,7 +11,7 @@ This guide walks you through setting up your computing environment for single-ce
 ## Table of Contents
 
 - [Part 1: Managing Your Google Cloud VM](#part-1-managing-your-google-cloud-vm)
-- [Part 2: Installing RStudio Server](#part-2-installing-rstudio-server)
+- [Part 2: Connecting with Visual Studio Code](#part-2-connecting-with-visual-studio-code)
 - [Part 3: Installing Seurat](#part-3-installing-seurat)
 - [Troubleshooting](#troubleshooting)
 - [Next Steps](#next-steps)
@@ -77,199 +77,107 @@ gcloud compute instances stop singlecell-vm --zone us-west1-a
 | Start VM | `gcloud compute instances start singlecell-vm --zone us-west1-a` |
 | SSH into VM | `gcloud compute ssh singlecell-vm --zone us-west1-a` |
 | Stop VM | `gcloud compute instances stop singlecell-vm --zone us-west1-a` |
-| Create SSH tunnel for RStudio | `gcloud compute ssh singlecell-vm --zone us-west1-a -- -N -L 8787:localhost:8787` |
+| Configure SSH for VSCode | `gcloud compute config-ssh` |
 
 ---
 
-## Part 2: Installing RStudio Server
+## Part 2: Connecting with Visual Studio Code
 
-RStudio Server lets you run RStudio in your web browser while the computation happens on your VM. Choose the instructions that match your VM's operating system.
+Visual Studio Code (VSCode) is a powerful code editor that can connect directly to your remote VM, allowing you to edit files and run code as if you were working locally.
 
-### Determine Your Operating System
+### Step 1: Install Visual Studio Code
 
-First, make sure you're connected to your VM (see Part 1), then check which OS you're running:
+Download and install VSCode for your operating system from the official website:
 
-```bash
-# For Debian
-cat /etc/os-release
+**[https://code.visualstudio.com/](https://code.visualstudio.com/)**
 
-# For Ubuntu
-lsb_release -a
-```
+Follow the installation instructions for your platform:
+- **Windows**: Run the downloaded `.exe` installer
+- **macOS**: Drag the application to your Applications folder
+- **Linux**: Follow the instructions for your distribution (`.deb` for Debian/Ubuntu, `.rpm` for Fedora/RHEL)
 
----
+### Step 2: Install the Remote - SSH Extension
 
-### Option A: Debian (11 or 12)
+1. Open VSCode
+2. Click the **Extensions** icon in the left sidebar (or press `Ctrl+Shift+X` on Windows/Linux, `Cmd+Shift+X` on macOS)
+3. Search for **"Remote - SSH"**
+4. Find the extension by **Microsoft** and click **Install**
 
-#### Step 1: Install R and System Dependencies
+![Remote SSH Extension](https://code.visualstudio.com/assets/docs/remote/ssh/remote-ssh-extension.png)
 
-Run the following commands to install R and the libraries needed to compile R packages:
+### Step 3: Configure SSH for Your VM
 
-```bash
-sudo apt update
+Before connecting from VSCode, you need to configure SSH access to your Google Cloud VM.
 
-sudo apt install -y \
-    r-base \
-    gdebi-core \
-    build-essential \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    libxml2-dev \
-    libfontconfig1-dev \
-    libfreetype6-dev \
-    libpng-dev \
-    libtiff5-dev \
-    libjpeg-dev \
-    libharfbuzz-dev \
-    libfribidi-dev
-```
-
-Verify R installed correctly:
+**On your local machine**, open a terminal and run:
 
 ```bash
-R --version
+gcloud compute config-ssh
 ```
 
-You should see R version 4.x.
-
-#### Step 2: Download and Install RStudio Server
-
-Download the appropriate RStudio Server installer from [Posit's download page](https://posit.co/download/rstudio-server/). Select the version matching your Debian release (11 or 12).
-
-After downloading, install with `gdebi`:
-
-```bash
-sudo gdebi -n rstudio-server-<version>-amd64.deb
-```
-
-#### Step 3: Start RStudio Server
-
-Enable and start the RStudio Server service:
-
-```bash
-sudo systemctl enable --now rstudio-server
-sudo systemctl status rstudio-server --no-pager
-```
-
-You should see `Active: active (running)` in the output. RStudio Server runs on port 8787.
-
-#### Step 4: Set Your Linux Password
-
-RStudio uses your Linux username and password to authenticate. Set a password for your user:
-
-```bash
-sudo passwd YOUR_USERNAME
-```
-
-Enter a password you'll remember—you'll use this to log into RStudio.
-
-#### Step 5: Access RStudio via SSH Tunnel
-
-This method is secure and doesn't require opening firewall ports.
-
-**On your local machine** (not the VM), open a new terminal and run:
-
-```bash
-gcloud compute ssh singlecell-vm \
-    --zone us-west1-a \
-    -- -N -L 8787:localhost:8787
-```
-
-This creates a secure tunnel that forwards the VM's port 8787 to your local machine. The `-N` flag means "don't open a shell, just create the tunnel." **Keep this terminal window open.**
-
-Now open your web browser and go to:
+This command automatically updates your `~/.ssh/config` file with entries for all your Google Cloud VMs. You should see output similar to:
 
 ```
-http://localhost:8787
+You should now be able to use ssh/scp with your instances.
+For example, try running:
+
+  $ ssh singlecell-vm.us-west1-a.YOUR_PROJECT_ID
 ```
 
-Log in with your Linux username and the password you set in Step 4.
+### Step 4: Connect to Your VM
 
----
+1. **Open VSCode**
+2. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS) to open the **Command Palette**
+3. Type **"Remote-SSH: Connect to Host"** and select it
+4. You'll see a list of available hosts. Select your VM (it will appear as something like `singlecell-vm.us-west1-a.YOUR_PROJECT_ID`)
+5. A new VSCode window will open and begin connecting to your VM
 
-### Option B: Ubuntu (22.04 or later)
+The first connection may take a minute or two as VSCode automatically installs its server component on the remote machine.
 
-#### Step 1: Install R and System Dependencies
+### Step 5: Verify the Connection
 
-```bash
-sudo apt update
-sudo apt install -y r-base gdebi-core
-```
+Once connected, you'll know it worked when:
 
-#### Step 2: Download and Install RStudio Server
+- The **bottom-left corner** of VSCode shows a green or blue indicator with "SSH: singlecell-vm..."
+- Opening a terminal (`Ctrl+`` ` or **Terminal → New Terminal**) runs commands directly on the VM
+- You can browse the VM's file system using **File → Open Folder**
 
-```bash
-cd /tmp
-wget -O rstudio-server.deb \
-    https://rstudio.org/download/latest/stable/server/jammy/rstudio-server-latest-amd64.deb
+### Step 6: Open Your Working Directory
 
-sudo gdebi -n rstudio-server.deb
-```
+1. Click **File → Open Folder** (or press `Ctrl+K Ctrl+O`)
+2. Navigate to your home directory or project folder on the VM
+3. Click **OK** to open the folder
 
-#### Step 3: Start RStudio Server
+VSCode will remember this location for quick access in future sessions.
 
-```bash
-sudo systemctl enable --now rstudio-server
-sudo systemctl status rstudio-server --no-pager
-```
+### Step 7: Install R Support in VSCode (Recommended)
 
-You should see `Active: active (running)`.
+To get the best experience working with R code, install these extensions **while connected to your VM**:
 
-#### Step 4: Set Your Linux Password
+1. Open the Extensions sidebar (`Ctrl+Shift+X`)
+2. Search for and install:
+   - **"R"** by REditorSupport — Provides R language support, syntax highlighting, and code completion
+   - **"R Debugger"** by RDebugger — Enables debugging R scripts
 
-```bash
-sudo passwd YOUR_USERNAME
-```
+When prompted, choose to install these extensions on the remote host (SSH: singlecell-vm).
 
-#### Step 5: Access RStudio
+### Tips for Working with VSCode Remote
 
-**Option 1: SSH Tunnel (Recommended)**
-
-On your local machine:
-
-```bash
-gcloud compute ssh singlecell-vm \
-    --zone us-west1-a \
-    -- -N -L 8787:localhost:8787
-```
-
-Keep this terminal open, then visit `http://localhost:8787` in your browser.
-
-**Option 2: Direct Access via External IP**
-
-If you prefer direct access, you'll need to open a firewall port. On your local machine:
-
-```bash
-# Create firewall rule (replace YOUR_PUBLIC_IP with your actual IP)
-gcloud compute firewall-rules create allow-rstudio-8787 \
-    --allow tcp:8787 \
-    --target-tags rstudio \
-    --source-ranges YOUR_PUBLIC_IP/32
-
-# Add the tag to your VM
-gcloud compute instances add-tags singlecell-vm \
-    --tags rstudio \
-    --zone us-west1-a
-```
-
-Get your VM's external IP:
-
-```bash
-# From the VM
-curl -s ifconfig.me
-```
-
-Then visit `http://VM_EXTERNAL_IP:8787` in your browser.
+- **Terminal access**: The integrated terminal runs directly on your VM—use it to run R scripts, install packages, or manage files
+- **File editing**: Edit any file on the VM as if it were local
+- **Extensions**: Some extensions need to be installed on the remote host. VSCode will prompt you when needed
+- **Reconnecting**: Your recent connections appear at the top of the "Remote-SSH: Connect to Host" list for quick access
+- **Disconnecting**: Close the VSCode window or click the green/blue indicator in the bottom-left and select "Close Remote Connection"
 
 ---
 
 ## Part 3: Installing Seurat
 
-Seurat is the primary R package for single-cell RNA-seq analysis. These instructions assume you have RStudio running (see Part 2).
+Seurat is the primary R package for single-cell RNA-seq analysis. These instructions assume you're connected to your VM via VSCode (see Part 2).
 
 ### Step 1: Install System Libraries
 
-In the **VM terminal** (via SSH, not the RStudio console), install the libraries needed to compile Seurat's dependencies:
+In the **VSCode terminal** (connected to your VM), install the libraries needed to compile Seurat's dependencies:
 
 ```bash
 sudo apt update
@@ -283,13 +191,19 @@ sudo apt install -y \
     libglpk-dev
 ```
 
-### Step 2: Restart Your R Session
+### Step 2: Start an R Session
 
-In RStudio, go to **Session → Restart R**. This ensures no outdated packages are loaded in memory.
+Open a terminal in VSCode (`Ctrl+`` ` or **Terminal → New Terminal**) and start R:
+
+```bash
+R
+```
+
+This opens an interactive R session where you'll run the following installation commands.
 
 ### Step 3: Install the Matrix Package
 
-Seurat requires a recent version of the Matrix package. In the **RStudio Console**, run:
+Seurat requires a recent version of the Matrix package. In your **R session**, run:
 
 ```r
 install.packages("remotes")
@@ -350,16 +264,23 @@ remotes::install_github("satijalab/seurat-data")
 
 ## Troubleshooting
 
-### RStudio won't start
-- Check the service status: `sudo systemctl status rstudio-server`
-- View logs: `sudo journalctl -u rstudio-server`
+### VSCode can't find the remote host
+- Run `gcloud compute config-ssh` again to update your SSH configuration
+- Verify your VM name and zone are correct
+- Check that gcloud is authenticated: `gcloud auth login`
 
-### Can't connect to RStudio in browser
-- Make sure your SSH tunnel is running (you should see the terminal "hanging" with no prompt)
-- Verify you're visiting `http://localhost:8787` (not https)
+### VSCode connection fails or times out
+- Verify the VM is running: `gcloud compute instances list`
+- Try connecting via regular SSH first to confirm access: `gcloud compute ssh singlecell-vm --zone us-west1-a`
+- Check your internet connection
+
+### VSCode connected but terminal shows errors
+- Close and reopen the terminal
+- Try reconnecting: close the VSCode window and connect again
+- Check VSCode's Output panel (View → Output) and select "Remote - SSH" for detailed logs
 
 ### Package installation fails
-- Restart your R session and try again
+- Restart your R session (type `q()` then `R` to restart) and try again
 - Check that all system libraries are installed (Step 1 in Part 3)
 
 ### SSH connection times out
