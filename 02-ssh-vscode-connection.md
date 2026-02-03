@@ -161,46 +161,23 @@ Your file explorer (left sidebar) now shows the contents of your VM's home direc
 
 ---
 
-## Part 7: Install R Extensions (Recommended)
+## Part 7: Install Extensions
 
-For the best experience working with R code, install these extensions while connected to your VM.
+Make sure the following VSCode extensions are installed:
+
+- R
+- Python
+- Jupyter
 
 ### Step 1: Open Extensions
 
 Click the **Extensions** icon or press `Ctrl+Shift+X`.
-
-### Step 2: Install R Support
-
-Search for and install:
-
-| Extension | Author | Purpose |
-|-----------|--------|---------|
-| **R** | REditorSupport | Syntax highlighting, code completion, help viewer |
-| **R Debugger** | RDebugger | Step-through debugging for R scripts |
 
 What the extensions pane looks like in VSCode:
 
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/f941386a-4a53-483f-8644-4d9f1dd6aea1" />
 
 When prompted, choose to install on the **SSH host** (not locally).
-
-### Step 3: Configure R Extension (Optional)
-
-For enhanced features, you can install the `languageserver` package in R:
-
-1. Open a terminal in VSCode
-2. Start R:
-   ```bash
-   R
-   ```
-3. Install the package:
-   ```r
-   install.packages("languageserver")
-   ```
-4. Exit R:
-   ```r
-   q()
-   ```
 
 ---
 
