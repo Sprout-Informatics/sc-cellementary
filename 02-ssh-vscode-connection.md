@@ -178,6 +178,10 @@ Search for and install:
 | **R** | REditorSupport | Syntax highlighting, code completion, help viewer |
 | **R Debugger** | RDebugger | Step-through debugging for R scripts |
 
+What the extensions pane looks like in VSCode:
+
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/f941386a-4a53-483f-8644-4d9f1dd6aea1" />
+
 When prompted, choose to install on the **SSH host** (not locally).
 
 ### Step 3: Configure R Extension (Optional)
