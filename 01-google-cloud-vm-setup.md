@@ -213,7 +213,8 @@ Choose your VM size based on your dataset:
 
 ## Next Steps
 
-Your VM is now configured and ready. Continue to the next guide to:
-1. Install RStudio Server for a graphical R environment
-2. Install Seurat and analysis packages
-3. Download the workshop dataset and begin your analysis
+Your VM is now configured and ready. Continue to the next guide:
+
+1. **[02-ssh-vscode-connection.md](02-ssh-vscode-connection.md)** — Set up SSH access and connect with Visual Studio Code
+2. Install Seurat and analysis packages (see [README.md](README.md))
+3. Start the [single-cell QC walkthrough](03-scrna-seq-qc-walkthrough.md)
