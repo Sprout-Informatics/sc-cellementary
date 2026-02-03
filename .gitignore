@@ -1,0 +1,10 @@
+
+# Large local analysis artifacts
+*.RData
+*.rds
+*.h5
+*.h5ad
+*.loom
+*.mtx
+*.csv
+results/
