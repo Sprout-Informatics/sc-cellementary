@@ -1,208 +1,26 @@
 # Setting Up SSH Access and Connecting with VSCode
 
 This guide walks you through setting up SSH access to your Google Cloud VM and connecting using Visual Studio Code (VSCode). By the end, you'll be able to edit code and run commands on your VM directly from your local machine.
-
-> **Prerequisite:** Complete [01-google-cloud-vm-setup.md](01-google-cloud-vm-setup.md) first. You should have a running VM before proceeding.
-
 ---
 
 ## Prerequisites
 
 - A Google Cloud VM already created (from the previous guide)
 - A local computer (Windows, macOS, or Linux)
+- An SSH public key file (generated for you, assigned to the VM you are connecting to)
 - About 15-20 minutes
 
 ---
 
-## Part 1: Install the Google Cloud CLI
-
-The `gcloud` command-line tool lets you manage your VMs and configure SSH access from your local terminal.
-
-### Step 1: Download and Install
-
-**macOS:**
-
-Open Terminal and run:
-
-```bash
-# Install via Homebrew (recommended)
-brew install --cask google-cloud-sdk
-```
-
-Or download from: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
-
-**Windows:**
-
-1. Download the installer from: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
-2. Run the downloaded `.exe` file
-3. Follow the installation wizard
-4. When prompted, check the box to add gcloud to your PATH
-
-**Linux (Debian/Ubuntu):**
-
-```bash
-# Add the Cloud SDK distribution URI as a package source
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-
-# Import the Google Cloud public key
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-
-# Install the Cloud SDK
-sudo apt update && sudo apt install -y google-cloud-cli
-```
-
-### Step 2: Initialize the CLI
-
-After installation, initialize gcloud:
-
-```bash
-gcloud init
-```
-
-Follow the prompts to:
-1. Log in to your Google account (a browser window will open)
-2. Select your project (`scRNAseq-workshop` or whatever you named it)
-3. Set a default region/zone (choose the same one as your VM)
-
-### Step 3: Verify Installation
-
-```bash
-gcloud --version
-```
-
-You should see version information for the Google Cloud SDK.
-
----
-
-## Part 2: Generate an SSH Key Pair
-
-SSH keys allow secure, password-free connections to your VM. You'll create a key pair: a private key (stays on your computer) and a public key (goes on the VM).
-
-### Step 1: Check for Existing Keys
-
-First, check if you already have SSH keys:
-
-```bash
-ls -la ~/.ssh/
-```
-
-If you see files named `id_rsa` and `id_rsa.pub` (or `id_ed25519` and `id_ed25519.pub`), you may already have keys. You can use existing keys or create new ones.
-
-### Step 2: Generate a New Key Pair
-
-We recommend using the Ed25519 algorithm for better security:
-
-```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
-```
-
-When prompted:
-
-| Prompt | What to Enter |
-|--------|---------------|
-| File location | Press **Enter** to accept the default (`~/.ssh/id_ed25519`) |
-| Passphrase | Enter a strong passphrase (recommended) or press **Enter** for none |
-| Confirm passphrase | Re-enter your passphrase |
-
-> **Tip:** A passphrase adds an extra layer of security. You'll enter it the first time you connect each session.
-
-**Alternative: RSA keys** (if Ed25519 isn't supported):
-
-```bash
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
-
-### Step 3: Verify Your Keys Were Created
-
-```bash
-ls -la ~/.ssh/
-```
-
-You should see:
-- `id_ed25519` — Your private key (keep this secret!)
-- `id_ed25519.pub` — Your public key (this gets shared)
-
-### Step 4: View Your Public Key
-
-Display your public key:
-
-```bash
-cat ~/.ssh/id_ed25519.pub
-```
-
-The output will look something like:
-
-```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your_email@example.com
-```
-
-Keep this terminal open—you'll need this key in the next step.
-
----
-
-## Part 3: Add Your SSH Key to Google Cloud
-
-Google Cloud needs your public key to allow SSH connections to your VMs.
-
-### Option A: Using gcloud (Recommended)
-
-The easiest method is to let gcloud handle everything:
-
-```bash
-gcloud compute config-ssh
-```
-
-This command:
-- Generates SSH keys if you don't have them
-- Uploads your public key to your Google Cloud project
-- Configures your `~/.ssh/config` file with entries for all your VMs
-
-You should see output like:
-
-```
-You should now be able to use ssh/scp with your instances.
-For example, try running:
-
-  $ ssh scrnaseq-vm.us-west1-a.your-project-id
-```
-
-### Option B: Manual Upload via Console
-
-If you prefer to add keys manually:
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Navigate to **Compute Engine → Metadata**
-3. Click the **SSH Keys** tab
-4. Click **ADD SSH KEY**
-5. Paste your entire public key (from `cat ~/.ssh/id_ed25519.pub`)
-6. Click **Save**
-
----
-
-## Part 4: Test SSH Connection
+## Part 1: Test SSH Connection
 
 Before setting up VSCode, verify that SSH works from your terminal.
 
-### Step 1: Start Your VM
-
-If your VM isn't running:
+### Step 1: Connect via SSH
 
 ```bash
-gcloud compute instances start scrnaseq-vm --zone us-west1-a
+ssh -i PATH_TO_PUBLIC_KEY_FILE username@[IP.ADDRESS] ## This needs to be setup for participants before hand
 ```
-
-Replace `us-west1-a` with your VM's actual zone.
-
-### Step 2: Connect via SSH
-
-```bash
-gcloud compute ssh scrnaseq-vm --zone us-west1-a
-```
-
-The first time you connect, gcloud may:
-- Generate SSH keys (if you haven't already)
-- Ask you to set a passphrase
-- Add the VM's host key to your known_hosts file
 
 Once connected, you'll see a prompt like:
 
@@ -210,13 +28,11 @@ Once connected, you'll see a prompt like:
 your_username@scrnaseq-vm:~$
 ```
 
-### Step 3: Disconnect
-
 Type `exit` or press `Ctrl+D` to close the SSH connection.
 
 ---
 
-## Part 5: Install Visual Studio Code
+## Part 2: Install Visual Studio Code
 
 VSCode is a powerful code editor that can connect directly to your VM, letting you edit files and run commands as if working locally.
 
@@ -238,23 +54,9 @@ Download from the official website:
 - Drag **Visual Studio Code** to your **Applications** folder
 - Open VSCode and optionally add it to your Dock
 
-**Linux (Debian/Ubuntu):**
-
-```bash
-# Download the .deb package from the website, then:
-sudo dpkg -i code_*.deb
-sudo apt install -f  # Install any missing dependencies
-```
-
-Or use snap:
-
-```bash
-sudo snap install code --classic
-```
-
 ---
 
-## Part 6: Install the Remote - SSH Extension
+## Part 3: Install the Remote - SSH Extension
 
 The Remote - SSH extension lets VSCode connect to your VM.
 
@@ -273,21 +75,13 @@ The extension will also install "Remote - SSH: Editing Configuration Files" as a
 
 ---
 
-## Part 7: Configure SSH for VSCode
+## Part 4: Configure SSH for VSCode
 
-VSCode uses your SSH config file to know how to connect to remote hosts.
+VSCode uses your SSH config file to know how to connect to remote hosts. This step will be very similar to how your computer uses SSH to connect to the VM without VSCode.
 
-### Step 1: Run gcloud config-ssh
+### Step 1: Verify the Configuration
 
-If you haven't already, run this command to configure SSH:
-
-```bash
-gcloud compute config-ssh
-```
-
-This creates entries in `~/.ssh/config` for all your Google Cloud VMs.
-
-### Step 2: Verify the Configuration
+If you don't already have a file named `~/.ssh/config`, create it.
 
 Check that your VM appears in the SSH config:
 
@@ -308,7 +102,7 @@ Host scrnaseq-vm.us-west1-a.your-project-id
 
 ---
 
-## Part 8: Connect to Your VM with VSCode
+## Part 5: Connect to Your VM with VSCode
 
 Now you're ready to connect!
 
@@ -351,7 +145,7 @@ It should display `scrnaseq-vm`, confirming you're on your VM.
 
 ---
 
-## Part 9: Open Your Working Directory
+## Part 6: Open Your Working Directory
 
 ### Step 1: Open a Folder
 
@@ -367,7 +161,7 @@ Your file explorer (left sidebar) now shows the contents of your VM's home direc
 
 ---
 
-## Part 10: Install R Extensions (Recommended)
+## Part 7: Install R Extensions (Recommended)
 
 For the best experience working with R code, install these extensions while connected to your VM.
 
@@ -462,33 +256,6 @@ Your SSH keys aren't set up correctly:
    ```bash
    gcloud config get-value project
    ```
-
----
-
-## Managing Your Connection
-
-### Disconnecting
-
-To disconnect from your VM:
-- Close the VSCode window, **OR**
-- Click the green/blue indicator in the bottom-left corner and select **"Close Remote Connection"**
-
-### Reconnecting
-
-Your recent connections are saved. To reconnect:
-1. Open VSCode
-2. Open Command Palette (`Ctrl+Shift+P`)
-3. Type "Remote-SSH: Connect to Host"
-4. Your VM will appear at the top of the list
-
-### Updating SSH Configuration
-
-If your VM's IP address changes (after stopping/starting), update your SSH config:
-
-```bash
-gcloud compute config-ssh
-```
-
 ---
 
 ## Next Steps
@@ -500,7 +267,3 @@ Now that you're connected to your VM via VSCode, you can:
 3. Create and edit R scripts directly on your VM
 4. Run analysis pipelines from the integrated terminal
 
-> **Remember:** Always stop your VM when you're done to avoid unnecessary charges!
-> ```bash
-> gcloud compute instances stop scrnaseq-vm --zone us-west1-a
-> ```
