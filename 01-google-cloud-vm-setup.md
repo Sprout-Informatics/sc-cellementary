@@ -186,7 +186,7 @@ python3 --version
 **Expected results:**
 - ✅ CPU: 4 vCPUs (or 8 if you chose n1-standard-8)
 - ✅ Disk: ~150 GB total
-- ✅ R: version 4.x
+- ✅ R: version 4.5+
 - ✅ Python: version 3.x
 
 ---
