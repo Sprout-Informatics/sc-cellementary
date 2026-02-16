@@ -83,22 +83,20 @@ VSCode uses your SSH config file to know how to connect to remote hosts. This st
 
 If you don't already have a file named `~/.ssh/config`, create it.
 
-Check that your VM appears in the SSH config:
-
 ```bash
 cat ~/.ssh/config
 ```
 
-You should see an entry like:
+Create an entry for the cellementary host, being sure to enter the correct path to the key file in place of PATH/TO below:
 
 ```
-Host scrnaseq-vm.us-west1-a.your-project-id
-    HostName 35.xxx.xxx.xxx
-    IdentityFile ~/.ssh/google_compute_engine
-    UserKnownHostsFile ~/.ssh/google_compute_known_hosts
+Host cellementary-vm
+  HostName 136.111.181.145
+  IdentityFile PATH/TO/id_ed25519_sc-cellementary
+  User cellementary
 ```
 
-> **Note:** The IP address (`HostName`) may change if your VM is stopped and restarted. Run `gcloud compute config-ssh` again to update it.
+> **Note:** The IP address (`HostName`) may change if your VM is stopped and restarted. Run `gcloud compute config-ssh` again to update it (or get it from the class coordinator)
 
 ---
 
@@ -116,7 +114,7 @@ Press:
 
 1. Type **"Remote-SSH: Connect to Host"** and select it
 2. You'll see a list of available hosts from your SSH config
-3. Select your VM (e.g., `scrnaseq-vm.us-west1-a.your-project-id`)
+3. Select your VM (e.g., `cellementary-vm`)
 
 ### Step 3: Wait for Connection
 
@@ -132,7 +130,7 @@ You may be prompted for:
 ### Step 4: Verify the Connection
 
 Once connected:
-- The **bottom-left corner** shows a green/blue indicator with "SSH: scrnaseq-vm..."
+- The **bottom-left corner** shows a green/blue indicator with "SSH: 136.111.181.145..."
 - Open a terminal (`Ctrl+`` ` or **Terminal → New Terminal**) to run commands on the VM
 
 Try running:
@@ -141,7 +139,7 @@ Try running:
 hostname
 ```
 
-It should display `scrnaseq-vm`, confirming you're on your VM.
+It should display `sc-cellementary-default`, confirming you're on your VM.
 
 ---
 
@@ -150,7 +148,7 @@ It should display `scrnaseq-vm`, confirming you're on your VM.
 ### Step 1: Open a Folder
 
 1. Click **File → Open Folder** (or press `Ctrl+K Ctrl+O`)
-2. Navigate to your home directory: `/home/your_username`
+2. Navigate to your home directory: `/home/cellementary`
 3. Click **OK**
 
 ### Step 2: Trust the Folder
@@ -178,6 +176,7 @@ What the extensions pane looks like in VSCode:
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/f941386a-4a53-483f-8644-4d9f1dd6aea1" />
 
 When prompted, choose to install on the **SSH host** (not locally).
+If prompted to install additional extensions, do so.
 
 ---
 
