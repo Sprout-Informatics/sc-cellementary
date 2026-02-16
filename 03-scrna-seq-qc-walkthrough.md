@@ -30,6 +30,7 @@ We'll analyze peripheral blood mononuclear cells (PBMCs) from a healthy human do
 ## Part 0: Download the Data
 
 Connect to your VM via SSH and download the filtered feature-barcode matrix:
+**NOTE:** This has already been done for sc-cellementary! Proceed to the next section
 
 ```bash
 # Create a directory structure
@@ -61,7 +62,20 @@ wget https://cf.10xgenomics.com/samples/cell-exp/9.0.0/5k_Human_Donor1_PBMC_3p_g
 
 ## Part 1: Set Up Your R Session
 
-Open RStudio Server in your browser and run the following in the Console:
+Open a new file (File->New File) and select Jupyter Notebook from the dropdown
+In the upper right, click Select Kernel. Click R. If R does not appear, select Jupyter Kernel, then R.
+You should now have a new session with the R kernel loaded.
+
+**NOTE:** If this is your first time using Seurat and the package is not installed, please install pre-requisites:
+
+```r
+# Install required libraries
+library.install(Seurat)
+library.install(tidyverse)
+library.install(hd5r)
+```
+
+Next, load required libaries and set working directory:
 
 ```r
 # Load required libraries
