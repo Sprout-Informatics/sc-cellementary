@@ -7,9 +7,8 @@ This tutorial walks you through the first phase of single-cell RNA-seq analysis:
 ## Prerequisites
 
 Before starting, make sure you have:
-- RStudio Server running on your VM (see the VM setup guide)
-- Seurat and tidyverse installed
-- A working directory set up for your analysis
+- Set up a VM
+- Installed R
 
 ---
 
