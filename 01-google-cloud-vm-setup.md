@@ -148,6 +148,8 @@ sudo apt install -y build-essential git wget unzip curl
 sudo apt install -y python3 python3-pip python3-venv r-base
 ```
 
+**NOTE:** If the R version <= 4.5, you will need to add a newer CRAN repository and re-install r-base. See install instructions here: https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html
+
 ### Step 4: Install Libraries for R Packages
 
 These libraries are needed to compile R packages like Seurat:
