@@ -155,7 +155,7 @@ sudo apt install -y python3 python3-pip python3-venv r-base
 These libraries are needed to compile R packages like Seurat:
 
 ```bash
-sudo apt install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+sudo apt install -y libcurl4-openssl-dev libssl-dev libxml2-dev libhdf5-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libwebp-dev libharfbuzz-dev libfribidi-dev libfontconfig1-dev
 ```
 
 Your VM is now ready for:
