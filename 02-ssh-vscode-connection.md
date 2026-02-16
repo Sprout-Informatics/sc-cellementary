@@ -91,12 +91,12 @@ Create an entry for the cellementary host, being sure to enter the correct path 
 
 ```
 Host cellementary-vm
-  HostName 136.111.181.145
-  IdentityFile PATH/TO/id_ed25519_sc-cellementary
+  HostName <IP ADDRESS>
+  IdentityFile <PATH/TO/>id_ed25519_sc-cellementary
   User cellementary
 ```
 
-> **Note:** The IP address (`HostName`) may change if your VM is stopped and restarted. Run `gcloud compute config-ssh` again to update it (or get it from the class coordinator)
+> **Note:** The IP address (`HostName`) may change if your VM is stopped and restarted. Run `gcloud compute config-ssh` again to update it (or get it from the cellementary class coordinator)
 
 ---
 
@@ -130,7 +130,7 @@ You may be prompted for:
 ### Step 4: Verify the Connection
 
 Once connected:
-- The **bottom-left corner** shows a green/blue indicator with "SSH: 136.111.181.145..."
+- The **bottom-left corner** shows a green/blue indicator with "SSH: cellementary-vm..."
 - Open a terminal (`Ctrl+`` ` or **Terminal → New Terminal**) to run commands on the VM
 
 Try running:
@@ -161,7 +161,7 @@ Your file explorer (left sidebar) now shows the contents of your VM's home direc
 
 ## Part 7: Install Extensions
 
-Make sure the following VSCode extensions are installed:
+We will make sure the following VSCode extensions are installed:
 
 - R
 - Python
@@ -179,6 +179,10 @@ When prompted, choose to install on the **SSH host** (not locally).
 If prompted to install additional extensions, do so.
 
 ---
+
+## Part 8: Install the R kernel
+
+From a terminal window (Terminal->New Terminal if not already visible), install R
 
 ## Quick Reference
 
