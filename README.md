@@ -9,7 +9,7 @@ Welcome to the Single-Cell RNA-seq Analysis Workshop. This repository contains a
 ### Course Materials
 
 - **Course Plan** — *Coming soon*
-- **Slides** — *Coming soon*
+- **Slides** — [*Coming soon*](https://docs.google.com/presentation/d/1CFD9Hu3P5BMr7VkunlDAPdU9_YujjMqaR9Do8zIcUYU/edit?usp=sharing)
 
 ---
 
