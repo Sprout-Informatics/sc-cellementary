@@ -22,10 +22,16 @@ Before setting up VSCode, verify that SSH works from your terminal.
 ssh -i PATH_TO_PUBLIC_KEY_FILE username@[IP.ADDRESS] ## This needs to be setup for participants before hand
 ```
 
+In this workshop, everyone will log in with the username `cellementary`. Example:
+
+```bash
+ssh cellementary@[IP ADDRESS] -i ~/.ssh/id_ed25519_sc-cellementary
+```
+
 Once connected, you'll see a prompt like:
 
 ```
-your_username@scrnaseq-vm:~$
+cellementary@sc-cellementary-default:~$
 ```
 
 Type `exit` or press `Ctrl+D` to close the SSH connection.
