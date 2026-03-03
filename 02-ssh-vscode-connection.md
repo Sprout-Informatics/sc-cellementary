@@ -147,6 +147,8 @@ hostname
 
 It should display `sc-cellementary-default`, confirming you're on your VM.
 
+<img width="388" height="141" alt="image" src="https://github.com/user-attachments/assets/9f909c7d-f538-43c5-8552-81b3d561cf50" />
+
 ---
 
 ## Part 6: Open Your Working Directory
@@ -156,6 +158,11 @@ It should display `sc-cellementary-default`, confirming you're on your VM.
 1. Click **File → Open Folder** (or press `Ctrl+K Ctrl+O`)
 2. Navigate to your home directory: `/home/cellementary`
 3. Click **OK**
+
+The procedure above will look like this:
+
+<img width="1096" height="442" alt="image" src="https://github.com/user-attachments/assets/466dbd36-e8d8-45e7-a19c-4c4516c4a5de" />
+
 
 ### Step 2: Trust the Folder
 
