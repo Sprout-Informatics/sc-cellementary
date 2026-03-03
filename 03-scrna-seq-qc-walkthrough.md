@@ -2,6 +2,11 @@
 
 This tutorial walks you through the first phase of single-cell RNA-seq analysis: loading data, performing quality control (QC), and preparing your dataset for downstream analysis.
 
+**Before you continue** note that participants of the single cell workshop hosted by the Boston Women in Bioinformatics and Sprout Informatics, with a provisioned Google Cloud VM, many of the following steps have already been done for you, including:
+
+- Downloading of the data
+- Environment setup
+
 ---
 
 ## Prerequisites
@@ -26,21 +31,15 @@ We'll analyze peripheral blood mononuclear cells (PBMCs) from a healthy human do
 
 ---
 
-## Part 0: Download the Data
+## Part 0: The Data
 
-Connect to your VM via SSH and download the filtered feature-barcode matrix:
-**NOTE:** This has already been done for sc-cellementary! Proceed to the next section
+The data in this walkthrough are downloaded from 10X Genomics. 
 
-```bash
-# Create a directory structure
-mkdir -p ~/singlecell/data
-mkdir -p ~/singlecell/analysis
-mkdir -p ~/singlecell/results
+**If you are participating in the workshop, these data have already been downloaded into ~/singlecell/data.** Otherwise, you can follow the steps below to download:
 
-# Navigate to the data directory
-cd ~/singlecell/data
+Download the filtered feature-barcode matrix (this is the main file we need)
 
-# Download the filtered feature-barcode matrix (this is the main file we need)
+```
 wget https://cf.10xgenomics.com/samples/cell-exp/9.0.0/5k_Human_Donor1_PBMC_3p_gem-x_5k_Human_Donor1_PBMC_3p_gem-x/5k_Human_Donor1_PBMC_3p_gem-x_5k_Human_Donor1_PBMC_3p_gem-x_count_sample_filtered_feature_bc_matrix.h5 \
     -O filtered_feature_bc_matrix.h5
 ```
@@ -65,7 +64,9 @@ Open a new file (File->New File) and select Jupyter Notebook from the dropdown
 In the upper right, click Select Kernel. Click R. If R does not appear, select Jupyter Kernel, then R.
 You should now have a new session with the R kernel loaded.
 
-**NOTE:** If this is your first time using Seurat and the package is not installed, please install pre-requisites:
+**If you are participating in the workshop, the required R packages and dependencies are already installed.**
+
+If not and this is your first time using Seurat and the package is not installed, please install pre-requisites:
 
 ```r
 # Install required libraries
@@ -74,7 +75,7 @@ library.install(tidyverse)
 library.install(hd5r)
 ```
 
-Next, load required libaries and set working directory:
+Once the libraries are installed, load required libaries and set working directory:
 
 ```r
 # Load required libraries
