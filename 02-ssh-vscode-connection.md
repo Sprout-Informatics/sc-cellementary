@@ -197,6 +197,11 @@ If prompted to install additional extensions, do so.
 
 From a terminal window (Terminal->New Terminal if not already visible), install R
 
+Sometimes the R kernel isn't detected properly. This could be due to the version of the Jupyter extension installed in VS Code. Sometimes switching from the pre-release version to the release version (or vice versa, depending on your personal computer) will resolve this issue. See the screenshot below, where you can see the "Switch to Release Version" (in the screenshot, the pre-release version is installed, which was what was necessary for the R kernel to be visible).
+
+<img width="1301" height="391" alt="image" src="https://github.com/user-attachments/assets/76b00fde-dc4a-414b-8c60-f93b8582f590" />
+
+
 ## Quick Reference
 
 | Task | How To |
