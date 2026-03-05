@@ -1,36 +1,57 @@
-# Single-Cell RNA-seq Workshop
+# From Counts to Cell Types
 
-Welcome to the Single-Cell RNA-seq Analysis Workshop. This repository contains all the materials you need to get started with single-cell analysis using Seurat on Google Cloud.
+**Single-Cell RNA-Seq Workshop**
+Boston Women in Bioinformatics | Sponsored by Sprout Informatics | April 2026
 
----
-
-## Workshop Resources
-
-### Course Materials
-
-- **Course Plan** — *Coming soon*
-- **Slides** — [*Coming soon*](https://docs.google.com/presentation/d/1CFD9Hu3P5BMr7VkunlDAPdU9_YujjMqaR9Do8zIcUYU/edit?usp=sharing)
+A 2-day hands-on introduction to single-cell RNA-seq analysis using Seurat on Google Cloud.
 
 ---
 
-## Setup Guides
+## Repository Structure
 
-Follow these guides in order to set up your computing environment:
+```
+sc-cellementary/
+├── README.md
+├── markdowns/                          # Student-facing resources (start here)
+│   ├── student_manual_intro.md         # Workshop overview and R command reference
+│   ├── student_manual_day_1.md         # Day 1 tutorial: QC and preprocessing
+│   ├── student_manual_day_2.md         # Day 2 tutorial: normalization to cell types
+│   ├── 01-google-cloud-vm-setup.md     # Setup guide: creating your Google Cloud VM
+│   ├── 02-ssh-vscode-connection.md     # Setup guide: SSH and VSCode connection
+│   └── scrnaseq_workshop_slides.md     # Workshop slide deck (markdown version)
+├── resources/                          # Supplementary files
+│   ├── student_manual.docx             # Student manual (Word format)
+│   ├── scrnaseq_workshop.pptx          # Workshop slides (PowerPoint)
+│   ├── workshop_workflows.html         # Visual workflow diagrams
+│   └── scRNA-seq Workshop Workflows.pdf
+├── instructor_resources/               # Instructor-only materials (not for students)
+│   ├── instructor_manual.md            # Teaching guide with timing, discussion notes, answer keys
+│   └── instructor_manual.docx          # Instructor manual (Word format)
+└── Rscript/
+    └── workshop.R                      # Complete R script for the workshop analysis
+```
+
+---
+
+## Student Resources
+
+All student-facing materials live in the [markdowns/](markdowns/) directory. Work through them in this order:
+
+### Setup (before the workshop)
 
 | Guide | Description |
 |-------|-------------|
-| [01 - Google Cloud VM Setup](01-google-cloud-vm-setup.md) | Create and configure your virtual machine on Google Cloud |
-| [02 - SSH & VSCode Connection](02-ssh-vscode-connection.md) | Set up SSH access and connect using Visual Studio Code |
+| [01 - Google Cloud VM Setup](markdowns/01-google-cloud-vm-setup.md) | Create and configure your virtual machine on Google Cloud |
+| [02 - SSH & VSCode Connection](markdowns/02-ssh-vscode-connection.md) | Set up SSH access and connect using Visual Studio Code |
 
----
+### Workshop Materials
 
-## Analysis Tutorials
-
-Hands-on tutorials for single-cell RNA-seq analysis:
-
-| Tutorial | Description |
-|----------|-------------|
-| [03 - QC & Preprocessing](03-scrna-seq-qc-walkthrough.md) | Load data, perform quality control, and prepare your dataset |
+| File | Description |
+|------|-------------|
+| [Student Manual — Intro](markdowns/student_manual_intro.md) | Workshop overview, dataset description, and R command quick-reference |
+| [Student Manual — Day 1](markdowns/student_manual_day_1.md) | Load count data, compute QC metrics (nFeature, nCount, percent.mt), and filter low-quality cells |
+| [Student Manual — Day 2](markdowns/student_manual_day_2.md) | Normalize data, run PCA/UMAP, cluster cells, find marker genes, and assign cell type identities |
+| [Workshop Slides](markdowns/scrnaseq_workshop_slides.md) | Slide content covering concepts across both days |
 
 ---
 
@@ -44,4 +65,4 @@ Hands-on tutorials for single-cell RNA-seq analysis:
 
 ## Getting Help
 
-If you encounter issues during the workshop, please reach out to the instructors or check the troubleshooting sections in each guide.
+If you encounter issues during the workshop, reach out to the instructors or check the troubleshooting sections within each guide.
