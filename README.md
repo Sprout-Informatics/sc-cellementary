@@ -66,3 +66,7 @@ All student-facing materials live in the [markdowns/](markdowns/) directory. Wor
 ## Getting Help
 
 If you encounter issues during the workshop, reach out to the instructors or check the troubleshooting sections within each guide.
+
+## Give Back!
+
+If you found the materials here helpful, please consider donating to the [Boston Women in Bioinformatics](https://givebutter.com/BWIBdonate) to support continued community initiatives such as this one!
