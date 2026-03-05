@@ -22,10 +22,16 @@ Before setting up VSCode, verify that SSH works from your terminal.
 ssh -i PATH_TO_PUBLIC_KEY_FILE username@[IP.ADDRESS] ## This needs to be setup for participants before hand
 ```
 
+In this workshop, everyone will log in with the username `cellementary`. Example:
+
+```bash
+ssh cellementary@[IP ADDRESS] -i ~/.ssh/id_ed25519_sc-cellementary
+```
+
 Once connected, you'll see a prompt like:
 
 ```
-your_username@scrnaseq-vm:~$
+cellementary@sc-cellementary-default:~$
 ```
 
 Type `exit` or press `Ctrl+D` to close the SSH connection.
@@ -141,6 +147,8 @@ hostname
 
 It should display `sc-cellementary-default`, confirming you're on your VM.
 
+<img width="388" height="141" alt="image" src="https://github.com/user-attachments/assets/9f909c7d-f538-43c5-8552-81b3d561cf50" />
+
 ---
 
 ## Part 6: Open Your Working Directory
@@ -150,6 +158,11 @@ It should display `sc-cellementary-default`, confirming you're on your VM.
 1. Click **File → Open Folder** (or press `Ctrl+K Ctrl+O`)
 2. Navigate to your home directory: `/home/cellementary`
 3. Click **OK**
+
+The procedure above will look like this:
+
+<img width="1096" height="442" alt="image" src="https://github.com/user-attachments/assets/466dbd36-e8d8-45e7-a19c-4c4516c4a5de" />
+
 
 ### Step 2: Trust the Folder
 
@@ -182,7 +195,16 @@ If prompted to install additional extensions, do so.
 
 ## Part 8: Install the R kernel
 
-From a terminal window (Terminal->New Terminal if not already visible), install R
+Assuming base R is already installed, you need to make the R kernel visible to VS Code. Run the following in your terminal:
+
+```bash
+R -e "install.packages('IRkernel', repos='https://cloud.r-project.org')"
+R -e "IRkernel::installspec(user = FALSE)"
+```
+
+Sometimes the R kernel isn't detected properly. This could be due to the version of the Jupyter extension installed in VS Code. Sometimes switching from the pre-release version to the release version (or vice versa, depending on your personal computer) will resolve this issue. See the screenshot below, where you can see the "Switch to Release Version" (in the screenshot, the pre-release version is installed, which was what was necessary for the R kernel to be visible).
+
+<img width="1301" height="391" alt="image" src="https://github.com/user-attachments/assets/76b00fde-dc4a-414b-8c60-f93b8582f590" />
 
 ## Quick Reference
 
