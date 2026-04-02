@@ -113,6 +113,8 @@ Run the plotting code in `workshop.R` to generate violin plots and scatter plots
 - `qc_scatter_counts_vs_genes.png`
 - `qc_scatter_counts_vs_mito.png`
 
+  Refer: https://github.com/Sprout-Informatics/sc-cellementary/blob/Pr-dev/Rscript/workshop.R#L25
+
 ### QC Plot Interpretation Guide
 
 Use this table when examining your plots:
