@@ -134,6 +134,8 @@ pbmc <- subset(pbmc,
            percent.mt < max_mito)
 ```
 
+Plot the QC plots again after this filtering. 
+
 After filtering, this dataset retains **1,700 high-quality cells**.
 
 > **Think about it:**
