@@ -85,7 +85,7 @@ pbmc[["percent.ribo"]] <- PercentageFeatureSet(pbmc, pattern = "^RPL|^RPS")
 ```
 
 ## Step 3: Visualize QC Metrics
-
+Refer: https://github.com/Sprout-Informatics/sc-cellementary/blob/main/Rscript/workshop.R#L25 to 74
 Run the plotting code in `workshop.R` to generate violin plots and scatter plots. Your output files will be:
 - `qc_violin_nFeature_RNA.png`
 - `qc_violin_nCount_RNA.png`
@@ -133,6 +133,8 @@ pbmc <- subset(pbmc,
            nFeature_RNA < max_genes &
            percent.mt < max_mito)
 ```
+
+Plot the QC plots again after this filtering. 
 
 After filtering, this dataset retains **1,700 high-quality cells**.
 

@@ -48,9 +48,9 @@ All student-facing materials live in the [markdowns/](markdowns/) directory. Wor
 
 | File | Description |
 |------|-------------|
-| [Student Manual — Intro](markdowns/student_manual_intro.md) | Workshop overview, dataset description, and R command quick-reference |
-| [Student Manual — Day 1](markdowns/student_manual_day_1.md) | Load count data, compute QC metrics (nFeature, nCount, percent.mt), and filter low-quality cells |
-| [Student Manual — Day 2](markdowns/student_manual_day_2.md) | Normalize data, run PCA/UMAP, cluster cells, find marker genes, and assign cell type identities |
+| [Manual — Intro](markdowns/student_manual_intro.md) | Workshop overview, dataset description, and R command quick-reference |
+| [Manual — Day 1](markdowns/student_manual_day_1.md) | Load count data, compute QC metrics (nFeature, nCount, percent.mt), and filter low-quality cells |
+| [Manual — Day 2](markdowns/student_manual_day_2.md) | Normalize data, run PCA/UMAP, cluster cells, find marker genes, and assign cell type identities |
 | [Workshop Slides](markdowns/scrnaseq_workshop_slides.md) | Slide content covering concepts across both days |
 
 ---
@@ -66,3 +66,7 @@ All student-facing materials live in the [markdowns/](markdowns/) directory. Wor
 ## Getting Help
 
 If you encounter issues during the workshop, reach out to the instructors or check the troubleshooting sections within each guide.
+
+## Give Back!
+
+If you found the materials here helpful, please consider donating to the [Boston Women in Bioinformatics](https://givebutter.com/BWIBdonate) to support continued community initiatives such as this one!
